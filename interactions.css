@@ -1,0 +1,372 @@
+/* ============================================================
+   ScalePath.biz — Human Interactions CSS
+   Paste this at the bottom of your CSS in Base44
+   ============================================================ */
+
+/* ── 1. SOCIAL PROOF TOASTS ─────────────────────────────── */
+#sp-toast-container {
+  position: fixed;
+  bottom: 96px;
+  left: 24px;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.sp-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.14);
+  pointer-events: all;
+  max-width: 300px;
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.sp-toast--in  { opacity: 1; transform: translateX(0); }
+.sp-toast--out { opacity: 0; transform: translateX(-24px); }
+
+.sp-toast-avatar {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, #2563eb, #10b981);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8125rem; font-weight: 700; color: #fff;
+  flex-shrink: 0;
+}
+.sp-toast-body {
+  flex: 1;
+  font-size: .8125rem;
+  line-height: 1.45;
+  color: #1f2937;
+}
+.sp-toast-body strong { font-weight: 700; display: block; }
+.sp-toast-body span   { color: #6b7280; }
+
+.sp-toast-close {
+  background: none; border: none; cursor: pointer;
+  font-size: 1.1rem; color: #9ca3af;
+  line-height: 1; padding: 0; flex-shrink: 0;
+  transition: color .2s;
+}
+.sp-toast-close:hover { color: #1f2937; }
+
+
+/* ── 2. FLOATING CHAT WIDGET ────────────────────────────── */
+#sp-chat {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 8500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.sp-chat-btn {
+  display: flex; align-items: center; gap: 10px;
+  background: #2563eb;
+  color: #fff;
+  border: none; cursor: pointer;
+  padding: 14px 20px;
+  border-radius: 100px;
+  font-size: .9375rem; font-weight: 600;
+  box-shadow: 0 4px 20px rgba(37,99,235,.4);
+  transition: transform .2s, box-shadow .2s, background .2s;
+  position: relative;
+}
+.sp-chat-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37,99,235,.5);
+}
+.sp-chat-btn--pulse {
+  animation: chatPulse 2.5s ease-in-out 3;
+}
+@keyframes chatPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,99,235,.4); }
+  50%       { box-shadow: 0 4px 32px rgba(37,99,235,.7); transform: scale(1.04); }
+}
+
+.sp-chat-badge {
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 20px; height: 20px;
+  background: #ef4444;
+  border-radius: 50%;
+  font-size: .7rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff;
+  display: none;
+}
+
+.sp-chat-panel {
+  width: 320px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 16px 60px rgba(0,0,0,.18);
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(.92) translateY(16px);
+  transform-origin: bottom right;
+  transition: opacity .28s ease, transform .28s ease;
+}
+.sp-chat-panel--in {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.sp-chat-header {
+  display: flex; align-items: center; gap: 12px;
+  background: #0a1628;
+  padding: 18px 20px;
+  color: #fff;
+}
+.sp-chat-avatar {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, #2563eb, #10b981);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 700;
+  flex-shrink: 0;
+}
+.sp-chat-name  { font-size: .9375rem; font-weight: 700; }
+.sp-chat-status {
+  font-size: .75rem; color: rgba(255,255,255,.6);
+  display: flex; align-items: center; gap: 6px; margin-top: 2px;
+}
+.sp-status-dot {
+  width: 8px; height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.25);
+  animation: pulse 2s infinite;
+}
+.sp-chat-x {
+  margin-left: auto;
+  background: none; border: none; cursor: pointer;
+  font-size: 1.4rem; color: rgba(255,255,255,.6);
+  line-height: 1; transition: color .2s;
+}
+.sp-chat-x:hover { color: #fff; }
+
+.sp-chat-messages {
+  padding: 20px;
+  min-height: 100px;
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.sp-msg--agent { display: flex; flex-direction: column; align-items: flex-start; }
+.sp-msg-bubble {
+  background: #f3f4f6;
+  border-radius: 4px 14px 14px 14px;
+  padding: 12px 16px;
+  font-size: .875rem;
+  color: #1f2937;
+  line-height: 1.55;
+  max-width: 90%;
+}
+.sp-msg-time {
+  font-size: .7rem; color: #9ca3af; margin-top: 4px; padding-left: 4px;
+}
+
+.sp-chat-input-row {
+  padding: 16px 20px;
+  border-top: 1px solid #f3f4f6;
+}
+.sp-chat-cta {
+  display: block;
+  text-align: center;
+  background: #2563eb;
+  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: .875rem; font-weight: 600;
+  transition: background .2s;
+}
+.sp-chat-cta:hover { background: #1d4ed8; }
+
+
+/* ── 3. STICKY CTA BAR ──────────────────────────────────── */
+#sp-sticky-bar {
+  position: fixed;
+  bottom: -80px;
+  left: 0; right: 0;
+  z-index: 8000;
+  background: #0a1628;
+  border-top: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 -4px 24px rgba(0,0,0,.3);
+  transition: bottom .4s cubic-bezier(.4,0,.2,1);
+}
+#sp-sticky-bar.sp-sticky-bar--in { bottom: 0; }
+
+.sp-sticky-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.sp-sticky-text {
+  flex: 1;
+  font-size: .9375rem;
+  color: rgba(255,255,255,.8);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.sp-sticky-text strong { color: #fff; }
+.sp-sticky-btn {
+  background: #2563eb;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: .875rem; font-weight: 600;
+  white-space: nowrap;
+  transition: background .2s, transform .2s;
+}
+.sp-sticky-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+.sp-sticky-close {
+  background: none; border: none; cursor: pointer;
+  font-size: 1.3rem; color: rgba(255,255,255,.4);
+  line-height: 1; transition: color .2s; flex-shrink: 0;
+}
+.sp-sticky-close:hover { color: #fff; }
+
+
+/* ── 4. EXIT INTENT POPUP ───────────────────────────────── */
+#sp-exit-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,22,40,.75);
+  backdrop-filter: blur(6px);
+  z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+#sp-exit-overlay.sp-exit-overlay--in {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.sp-exit-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 460px;
+  width: calc(100% - 48px);
+  text-align: center;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0,0,0,.3);
+  animation: modalBounce .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes modalBounce {
+  from { transform: scale(.88); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.sp-exit-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none; cursor: pointer;
+  font-size: 1.6rem; color: #9ca3af;
+  line-height: 1; transition: color .2s;
+}
+.sp-exit-close:hover { color: #1f2937; }
+
+.sp-exit-emoji {
+  font-size: 3rem; margin-bottom: 16px; display: block;
+}
+.sp-exit-modal h2 {
+  font-size: 1.625rem; font-weight: 800;
+  color: #0a1628; margin-bottom: 12px; line-height: 1.2;
+}
+.sp-exit-modal p {
+  font-size: .9375rem; color: #4b5563; line-height: 1.7; margin-bottom: 24px;
+}
+.sp-exit-form {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.sp-exit-form input {
+  padding: 14px 18px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: .9375rem;
+  color: #1f2937;
+  background: #f9fafb;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+.sp-exit-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+  background: #fff;
+}
+.sp-exit-form button {
+  background: #2563eb; color: #fff;
+  border: none; cursor: pointer;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 1rem; font-weight: 700;
+  transition: background .2s, transform .2s;
+}
+.sp-exit-form button:hover { background: #1d4ed8; transform: translateY(-1px); }
+.sp-exit-fine {
+  font-size: .75rem !important; color: #9ca3af !important;
+  margin-bottom: 0 !important; margin-top: 8px;
+}
+
+.sp-exit-success { padding: 20px 0; }
+.sp-exit-check {
+  width: 64px; height: 64px;
+  background: #ecfdf5; border: 2px solid #10b981;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 1.75rem; color: #10b981; font-weight: 700;
+  margin: 0 auto 20px;
+}
+.sp-exit-success h2 { margin-bottom: 10px; }
+.sp-exit-success p  { margin-bottom: 0; }
+
+
+/* ── 5. LIVE VIEWER COUNT ───────────────────────────────── */
+#sp-viewers {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-size: .8125rem;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .02em;
+}
+.sp-viewers-dot {
+  width: 8px; height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.25);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+
+/* ── MOBILE ADJUSTMENTS ─────────────────────────────────── */
+@media (max-width: 640px) {
+  #sp-toast-container { left: 12px; right: 12px; bottom: 88px; }
+  .sp-toast { max-width: 100%; }
+
+  #sp-chat { bottom: 16px; right: 16px; }
+  .sp-chat-panel { width: calc(100vw - 32px); }
+  .sp-chat-label { display: none; }
+
+  .sp-sticky-text span { display: none; }
+  .sp-sticky-inner { gap: 12px; }
+
+  .sp-exit-modal { padding: 36px 24px; }
+}
